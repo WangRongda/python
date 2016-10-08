@@ -1,0 +1,37 @@
+import urllib
+import urllib2
+import re
+import sys
+test_data = {'from':'zh','to':'en','query':sys.argv[1],'transtype':'realtime','simple_means_flag':'3'}
+test_data_urlencode = urllib.urlencode(test_data)
+test_data_urlencode = urllib.urlencode(test_data)
+requrl="http://fanyi.baidu.com/v2transapi"
+req = urllib2.Request(url = requrl,data =test_data_urlencode)
+res_data = urllib2.urlopen(req)
+res = res_data.read()
+dst = re.compile(r'(?<=\[{"dst":")[^"]*', re.M)
+d = dst.findall(res)
+means = re.compile(r'(?<="word_mean":")[^"]*', re.M)
+m = means.findall(res)
+net_means = re.compile(r'(?<="net_means":\[)[^]]*', re.M)
+net = net_means.findall(res)
+n = ""
+if net:
+	n2 = re.compile(r'(?<={"means":)[^}]*', re.M)
+	n = n2.findall(net[0])
+
+print "												 "
+print "================================================================"
+print sys.argv[1]+" : ",
+print d[0].decode('unicode_escape')
+print "-------"
+if m:
+	for item in m:
+		print item.decode('unicode_escape')
+if n:
+	print "net: "
+	for item in n:
+		print item.decode('unicode_escape')
+print ""
+print "================================================================"
+print "												 "

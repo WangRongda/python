@@ -1,0 +1,23 @@
+import urllib
+import urllib2
+import re
+import sys
+test_data = {'from':'zh','to':'en','query':sys.argv[1],'transtype':'realtime','simple_means_flag':'3'}
+test_data_urlencode = urllib.urlencode(test_data)
+test_data_urlencode = urllib.urlencode(test_data)
+requrl="http://fanyi.baidu.com/v2transapi"
+req = urllib2.Request(url = requrl,data =test_data_urlencode)
+res_data = urllib2.urlopen(req)
+res = res_data.read()
+means = re.compile(r'(?<="baike_means":{"content":")[^"]*', re.M)
+m = means.findall(res)
+print "												 "
+print "================================================================"
+print sys.argv[1]+" : "
+print "-------"
+if m:
+	for item in m:
+		print item.decode('unicode_escape')
+print ""
+print "================================================================"
+print "												 "

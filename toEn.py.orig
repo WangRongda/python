@@ -1,0 +1,54 @@
+import urllib
+import urllib2
+import re
+import sys
+test_data = {'from':'en','to':'zh','query':sys.argv[1],'transtype':'realtime','simple_means_flag':'3'}
+test_data_urlencode = urllib.urlencode(test_data)
+test_data_urlencode = urllib.urlencode(test_data)
+requrl="http://fanyi.baidu.com/v2transapi"
+req = urllib2.Request(url = requrl,data =test_data_urlencode)
+res_data = urllib2.urlopen(req)
+res = res_data.read()
+print res
+dst = re.compile(r'(?<=\[{"dst":")[^"]*', re.M)
+d = dst.findall(res)
+part = re.compile(r'(?<={"part":")[^"]*', re.M)
+p = part.findall(res)
+means = re.compile(r'(?<="means":\[).*?"(?=\])', re.M)
+m = means.findall(res) 
+net_means = re.compile(r'(?<="net_means":\[)[^]]*', re.M)
+net = net_means.findall(res)
+n = ""
+s = ""
+if net:
+	n2 = re.compile(r'(?<={"means":)[^}]*', re.M)
+	n = n2.findall(net[0])
+simply_means = re.compile(r'(?<="simple_means":{)[^}]*', re.M)
+simply = simply_means.findall(res)
+if simply:
+	s = means.findall(simply[0])
+i = 0
+
+print "												 "
+print "================================================================"
+print sys.argv[1]+" : ",
+print d[0].decode('unicode_escape')
+print "-------"
+if p:
+	for item in p:
+		print item.decode('unicode_escape'),
+		print m[i].decode('unicode_escape')
+		i = i+1
+#else:
+#	print "not find word:  " + "\"" + sys.argv[1] + "\""
+if n:
+	print "simply net: "
+	for item in n:
+		print item.decode('unicode_escape')
+if s:
+	print "net: "
+	for item in s:
+		print item.decode('unicode_escape')
+print ""
+print "================================================================"
+print "												 "

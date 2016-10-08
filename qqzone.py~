@@ -1,0 +1,16 @@
+import urllib
+import urllib2
+import re
+import sys
+requrl="http://user.qzone.qq.com/123899696"
+h = {
+		'Cookie':'_qz_referrer=www.baidu.com; pgv_pvid=5969667154; pgv_info=ssid=s4318834; ptui_loginuin=123899696; ptisp=cm; RK=OKdvwHWGdu; ptcz=b3a79b095ecdb6c136e758caa81f82e24909368ac0313fefc58b42d3eb7a9518; pt2gguin=o0123899696; uin=o0123899696; skey=@qaSJQDhki; p_uin=o0123899696; p_skey=PlEnaEWhTTQeXBi9yefkPJ1U8D1nGaTjfUBRSUO*7PE_; pt4_token=De30LunPvfKCbfgOIYZYcxNLkI5c2WJHa1i3njAsxls_; fnc=2',
+		'Host':'user.qzone.qq.com',
+		'Referer':'http://qzs.qq.com/qzone/v5/loginsucc.html?para=izone',
+		'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'
+	}
+req = urllib2.Request(url = requrl,headers=h)
+res_data = urllib2.urlopen(req)
+res = res_data.read()
+
+print res

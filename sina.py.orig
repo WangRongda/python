@@ -1,0 +1,16 @@
+import urllib
+import urllib2
+import re
+import sys
+requrl="http://weibo.com/u/3625548004/home?wvr=5&retcode=50113020&reason=%B1%A7%C7%B8%A3%A1%B5%C7%C2%BC%CA%A7%B0%DC%A3%AC%C7%EB%C9%D4%BA%F2%D4%D9%CA%D4&retcode=50113020&reason=%B1%A7%C7%B8%A3%A1%B5%C7%C2%BC%CA%A7%B0%DC%A3%AC%C7%EB%C9%D4%BA%F2%D4%D9%CA%D4"
+
+h = {
+		'Cookie':'SINAGLOBAL=1715319100767.374.1455077787165; SUHB=0btsFSWVmL-3PV; wvr=6; wb_publish_vip_3625548004=1; _s_tentry=www.findspace.name; Apache=595270847051.1104.1462006063339; ULV=1462006064014:38:23:6:595270847051.1104.1462006063339:1461996405553; YF-V5-G0=d8480b079e226c170ff763917f70c4e7; SUB=_2A256IA-6DeTxGeVI6VcU9CbMyziIHXVZVGZyrDV8PUNbvtAMLUP-kW9LHes2XiBOUmIWiFQYhY2DYll0Ynvggg..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhKgEafCdMiCg888eRaFbV.5JpX5KMt; UOR=baike.baidu.com,widget.weibo.com,login.sina.com.cn', 
+		'Referer':'http://login.sina.com.cn/sso/login.php?entry=sso&alt=ALT-MzYyNTU0ODAwNA%3D%3D-1462009834-ja-658D89774767B5318D6EFEC8E127ED7A&returntype=META&gateway=1&savestate=365&url=http%3A%2F%2Fweibo.com%2Fu%2F3625548004%2Fhome%3Fwvr%3D5%26retcode%3D50113020%26reason%3D%25B1%25A7%25C7%25B8%25A3%25A1%25B5%25C7%25C2%25BC%25CA%25A7%25B0%25DC%25A3%25AC%25C7%25EB%25C9%25D4%25BA%25F2%25D4%25D9%25CA%25D4'
+		'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'
+	}
+req = urllib2.Request(url = requrl,headers=h)
+res_data = urllib2.urlopen(req)
+res = res_data.read()
+
+print res

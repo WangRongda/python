@@ -1,0 +1,34 @@
+#coding=utf-8
+import urllib
+import urllib2
+import re
+import sys
+city = '杭州'
+if len(sys.argv) != 1:
+	city = sys.argv[1]
+temp = { '晋江':'101230509', '杭州':'101210101' }
+requrl="http://www.weather.com.cn/weather/" + temp[city] + '.shtml'
+
+#h = {
+#		'Referer':'http://login.sina.com.cn/sso/login.php?entry=sso&alt=ALT-MzYyNTU0ODAwNA%3D%3D-1462009834-ja-658D89774767B5318D6EFEC8E127ED7A&returntype=META&gateway=1&savestate=365&url=http%3A%2F%2Fweibo.com%2Fu%2F3625548004%2Fhome%3Fwvr%3D5%26retcode%3D50113020%26reason%3D%25B1%25A7%25C7%25B8%25A3%25A1%25B5%25C7%25C2%25BC%25CA%25A7%25B0%25DC%25A3%25AC%25C7%25EB%25C9%25D4%25BA%25F2%25D4%25D9%25CA%25D4',
+#		'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'
+#	}
+req = urllib2.Request(url = requrl)
+res_data = urllib2.urlopen(req)
+res = res_data.read()
+#print res
+weather = re.compile(r'hour3data.*', re.M)
+w = weather.findall(res)
+wea =("".join(w))
+we = re.compile(r'(?<={"1d":\[)[^\]]*', re.M)
+w2 = we.findall(wea)
+w3 = ("".join(w2))
+w4 = re.compile(r'(?<=")[^"]*?(?=")', re.M)
+w5 = w4.findall(w3)
+print ""
+for item in w5:
+	if item!=',':
+		print ""
+		print "   ",
+		print item.replace(',',' ') 
+		print ""
